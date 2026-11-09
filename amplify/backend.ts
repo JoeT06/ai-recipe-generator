@@ -24,8 +24,8 @@ const bedrockDataSource = backend.data.resources.graphqlApi.addHttpDataSource(
 bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
   new PolicyStatement({
     resources: [
-      "arn:aws:bedrock:*:*:inference-profile/us.anthropic.claude-haiku-5-5*",
-      "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-5-5*",
+      "arn:aws:bedrock:*:*:inference-profile/us.amazon.nova-2-lite-v1:0",
+      "arn:aws:bedrock:*::foundation-model/amazon.nova-2-lite-v1:0",
     ],
     actions: ["bedrock:InvokeModel"],
   })
