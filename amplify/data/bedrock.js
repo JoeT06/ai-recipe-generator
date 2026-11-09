@@ -1,5 +1,5 @@
 // The tutorial's model (Claude 3.5 Sonnet v2) is retired on Bedrock.
-// This calls Claude Haiku 5.5 through the US cross-region inference profile,
+// This calls Amazon Nova 2 Lite through the US cross-region inference profile,
 // using the Bedrock Converse API so the model can be swapped by changing one ID.
 export function request(ctx) {
   const { ingredients = [] } = ctx.args;
@@ -9,7 +9,7 @@ export function request(ctx) {
 
   // Return the request configuration
   return {
-    resourcePath: `/model/us.anthropic.claude-haiku-5-5/converse`,
+    resourcePath: `/model/us.amazon.nova-2-lite-v1:0/converse`,
     method: "POST",
     params: {
       headers: {
@@ -40,8 +40,9 @@ export function response(ctx) {
   // Parse the response body
   const parsedBody = JSON.parse(ctx.result.body);
   // Extract the text content from the response
+  const textBlock = parsedBody.output.message.content.find((block) => block.text);
   const res = {
-    body: parsedBody.output.message.content[0].text,
+    body: textBlock ? textBlock.text : "No text returned",
   };
   // Return the response
   return res;
